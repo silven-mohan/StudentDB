@@ -43,3 +43,37 @@ def add_student():
 
 
 add_student()
+
+#--------Search Student--------
+
+def search_student():
+    ID = int(input("Enter id: "))
+
+    query = "SELECT * from STUD WHERE ID = %s"
+    values = ID 
+    db = connect_database()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute(query, values)
+        print("Student found.")
+
+        student = cursor.fetchone()
+        if student:
+            print("ID: ",student[0])
+            print("name: ",student[1])
+            print("age : ",student[2])
+            print("email: ",student[3])
+            print("year: ",student[4])
+        else:
+            print("student data not found")
+    except mysql.connector.error as Error:
+        print("Error: ", Error)
+
+    finally:
+        cursor.close()
+        db.close()
+
+search_student()
+
+    
