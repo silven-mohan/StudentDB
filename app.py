@@ -7,6 +7,7 @@ import mysql.connector
 def connect_database():
     return mysql.connector.connect(
         host="localhost",
+        port = 3306,
         user="root",
         database="STUDDB"
     )
@@ -42,15 +43,13 @@ def add_student():
         db.close()
 
 
-add_student()
-
 #--------Search Student--------
 
 def search_student():
     ID = int(input("Enter id: "))
 
     query = "SELECT * from STUD WHERE ID = %s"
-    values = ID 
+    values = (ID,) 
     db = connect_database()
     cursor = db.cursor()
 
@@ -74,6 +73,32 @@ def search_student():
         cursor.close()
         db.close()
 
-search_student()
 
-    
+
+# ---------- Main Menu ------------
+
+while True:
+    print("\n=== Student Database Management ===")
+    print("1. Add Student")
+    print("2. View Students")
+    print("3. Update Details of a student")
+    print("4. Search for a student")
+    print("5. Delete a student entry")
+    print("6. Exit")
+
+    choice = int(input("Choose one of the option: "))
+
+    if choice == 1:
+        add_student()
+    elif choice == 2:
+        pass
+    elif choice == 3:
+        pass
+    elif choice == 4:
+        search_student()
+    elif choice == 5:
+        pass
+    elif choice == 6:
+        exit()
+    else:
+        print("Invlaid Option! Try Again!!")
